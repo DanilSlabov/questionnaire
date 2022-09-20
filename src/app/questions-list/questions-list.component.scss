@@ -1,0 +1,11 @@
+.questions-wrapper {
+  display: grid;
+  width: 100%;
+  margin: 20px 0;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.card-item{
+    margin: 10px 0;
+}

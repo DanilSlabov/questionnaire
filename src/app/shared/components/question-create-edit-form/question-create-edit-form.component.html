@@ -1,0 +1,66 @@
+<div class="form-container">
+  <form [formGroup]="createEditForm">
+
+    <!-- Question Type -->
+    <div class="field-item">
+      <mat-label class="custom-title">Question type:</mat-label>
+      <mat-radio-group formControlName="questionType">
+        <div class="margin-20">
+          <div *ngFor="let questionType of questionTypes | keyvalue" class="select-item">
+            <mat-radio-button [value]="questionType.value">
+              {{questionType.value}}
+            </mat-radio-button>
+          </div>
+        </div>
+      </mat-radio-group>
+      <mat-error
+        *ngIf="createEditForm.controls.questionType.touched && createEditForm.controls.questionType.hasError('required')">
+        Please specify question type
+      </mat-error>
+    </div>
+
+
+    <!-- Question Message -->
+    <div>
+      <mat-label class="custom-title">Question Message:</mat-label>
+      <mat-form-field class="textarea-fied" appearance="fill">
+        <textarea matInput [rows]="10" formControlName="questionMessage"></textarea>
+      </mat-form-field>
+      <mat-error
+        *ngIf="createEditForm.controls.questionMessage.touched && createEditForm.controls.questionMessage.hasError('required')">
+        Message is required
+      </mat-error>
+    </div>
+
+  </form>
+
+  <!-- Answers List -->
+  <form [formGroup]="suggestedAnswersForm">
+    <div [hidden]="!(selectedQuestionType && selectedQuestionType !=questionTypes.OpenAnswer)">
+      <mat-label class="custom-title">Answers:</mat-label>
+      <div class="margin-20">
+        <div class="iterator-item" *ngFor="let answer of suggestedAnswersItemFormArray.controls; let i=index">
+          <mat-label>{{i+1}}.</mat-label>
+          <mat-form-field formArrayName="items">
+            <input matInput [formControlName]="i" />
+          </mat-form-field>
+          <button mat-icon-button (click)="onRemoveAnswer(i)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <mat-error *ngIf="suggestedAnswersItemFormArray.touched && suggestedAnswersItemFormArray.hasError('minlength')">
+          Please add at least 2 answers
+        </mat-error>
+
+        <button type="button" mat-mini-fab color="accent" (click)="onAddNewAnswer()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="buttons-wrapper">
+    <button type="button" (click)="onSubmitForm()" mat-flat-button color="primary">
+      <mat-icon>save_icon</mat-icon>Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+$card-max-width: 1280px;
+
+.cards-wrapper {
+  display: block;
+  max-width: $card-max-width;
+  margin: 0 auto;
+}

@@ -1,0 +1,75 @@
+<h1 class="mat-display-2 page-title">Question List</h1>
+
+<div class="align-between">
+  <button mat-raised-button color="accent" routerLink="/management">
+    <mat-icon>
+      subdirectory_arrow_left
+    </mat-icon>
+    Management
+  </button>
+  <button mat-raised-button color="accent" routerLink="/create">
+    Create
+    <mat-icon>
+      subdirectory_arrow_right
+    </mat-icon>
+  </button>
+</div>
+
+<div class="questions-wrapper">
+  <div class="questions-column">
+    <h3 class="mat-disply-2">Answered</h3>
+
+    <ng-container *ngFor="let question of answeredQuestions">
+      <mat-card class="card-item">
+        <mat-card-subtitle>Created - {{question.creationDate | date:"medium"}}</mat-card-subtitle>
+        <mat-card-subtitle>Answered - {{question.answerDate | date:"medium"}}</mat-card-subtitle>
+        <mat-card-content>
+          <mat-card-title>Question:</mat-card-title>
+          <p class="mat-body margin-20">{{ question.questionMessage }}</p>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-card-title>Answer:</mat-card-title>
+          <app-question-answer-result [question]="question"></app-question-answer-result>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button type="button" color="warn" (click)="removeAnswer(question)">
+            <mat-icon>clear</mat-icon>ClearAnswer
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+  <div class="questions-column">
+    <h3>Unanswered</h3>
+
+    <ng-container *ngFor="let question of unAnsweredQuestions">
+      <mat-card class="card-item">
+        <mat-card-subtitle>{{question.creationDate | date:"medium"}}</mat-card-subtitle>
+        <mat-card-content>
+          <mat-card-title>Question:</mat-card-title>
+          <p class="mat-body">{{ question.questionMessage }}</p>
+          <mat-card-actions>
+            <div *ngIf="questionTypes.SignleAnswer === question.questionType">
+              <app-single-answer [suggestedAnswers]="question.suggestedAnswersList"
+                (submitAnswer)="onSaveAnswer(question, $event)"></app-single-answer>
+            </div>
+            <div *ngIf="questionTypes.MultipleAnswers === question.questionType">
+              <app-multiple-answer [suggestedAnswers]="question.suggestedAnswersList"
+                (submitAnswers)="onSaveAnswer(question, $event)">
+              </app-multiple-answer>
+            </div>
+            <div *ngIf="questionTypes.OpenAnswer === question.questionType">
+              <app-open-answer (submitAnswer)="onSaveAnswer(question, $event)"></app-open-answer>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+
+      </mat-card>
+
+    </ng-container>
+
+
+  </div>
+
+</div>

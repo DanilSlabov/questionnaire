@@ -1,0 +1,17 @@
+<div class="margin-10">
+  <form [formGroup]="openAnswerForm" (submit)="onSubmitAnswer()">
+    <mat-label class="custom-title">Answer</mat-label>
+    <mat-form-field class="textbox-input" appearance="fill">
+      <textarea matInput formControlName="message">Please specify the message</textarea>
+    </mat-form-field>
+    <mat-error *ngIf="openAnswerForm.controls.message.touched && openAnswerForm.controls.message.hasError('required')">
+      Answer is required
+    </mat-error>
+    <mat-error *ngIf="openAnswerForm.controls.message.touched && openAnswerForm.controls.message.hasError('maxlength')">
+      Too long answer {{openAnswerForm.controls.message.getError('maxlength').actualLength}}/255
+    </mat-error>
+    <div class="buttons-control">
+      <button mat-raised-button color="accent" type="submit">Save</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,16 @@
+<form [formGroup]="singleAnswerForm">
+    <div class="margin-10">
+        <mat-label class="custom-title">Answers:</mat-label>
+        <mat-radio-group formControlName="answerId">
+            <mat-radio-button *ngFor="let answer of suggestedAnswers; let i = index" [value]="answer.id"
+                class="select-item">
+                {{i+1}}. {{answer.answerMessage}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-error
+            *ngIf="singleAnswerForm.controls.answerId.touched && singleAnswerForm.controls.answerId.hasError('required')">
+            Please choose 1 answer
+        </mat-error>
+    </div>
+    <button mat-raised-button color="accent" type="button" (click)="onSubmitAnswer()">Save</button>
+</form>

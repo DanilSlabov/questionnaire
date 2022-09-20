@@ -1,0 +1,21 @@
+<h1 class="mat-display-2 page-title">Questions Management</h1>
+<div class="align-between">
+  <button mat-raised-button color="accent" routerLink="/list">
+    <mat-icon>
+      subdirectory_arrow_left
+    </mat-icon>
+    List
+  </button>
+  <button mat-raised-button color="accent" routerLink="/create">
+    Create question
+    <mat-icon>
+      subdirectory_arrow_right
+    </mat-icon>
+  </button>
+</div>
+<div class="cards-wrapper">
+  <ng-container *ngFor="let item of questions">
+    <app-management-card class="margin-10" [question]="item" (onRemoveQuestion)="removeQuestion($event)">
+    </app-management-card>
+  </ng-container>
+</div>

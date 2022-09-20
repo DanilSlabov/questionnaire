@@ -1,0 +1,22 @@
+<div class="margin-10">
+  <mat-label class="custom-title">Answers:</mat-label>
+
+  <ng-container *ngIf="multipleAnswersForm">
+
+    <form [formGroup]="multipleAnswersForm">
+      <ng-container formArrayName="selectedByIndex" *ngFor="let answer of suggestedAnswers; let i = index">
+        <mat-checkbox [formControlName]="i">
+          {{i+1}}. {{answer.answerMessage}}
+        </mat-checkbox>
+        <br />
+      </ng-container>
+      <mat-error *ngIf="multipleAnswersForm.controls.selectedByIndex.touched 
+      && multipleAnswersForm.controls.selectedByIndex.hasError('selected-required')">
+        Please select at least one answer
+      </mat-error>
+    </form>
+    <div class="buttons-control">
+      <button mat-raised-button color="accent" type="button" (click)="onSubmitAnswers()">Save</button>
+    </div>
+  </ng-container>
+</div>

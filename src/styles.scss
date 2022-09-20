@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+$max-container-width: 1280px;
+
+$main-background-color: #303030;
+$main-color: #fff;
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: $main-background-color;
+  color: $main-color;
+}
+
+.margin {
+  &-10 {
+    margin: 10px;
+  }
+  &-20 {
+    margin: 20px;
+  }
+}
+
+.page-title {
+  text-align: center;
+  padding: 20px;
+}
+
+.page-container {
+  max-width: $max-container-width;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.align-between {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
